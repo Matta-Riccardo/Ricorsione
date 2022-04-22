@@ -8,6 +8,7 @@ public class TestRegine {
 		ReginePrimaSoluzione r = new ReginePrimaSoluzione() ;
 		List<Integer> soluzione = r.cercaRegine(15);
 		System.out.println(soluzione) ;
+		//System.out.printl(soluzione.size());
 	}
 
 }
