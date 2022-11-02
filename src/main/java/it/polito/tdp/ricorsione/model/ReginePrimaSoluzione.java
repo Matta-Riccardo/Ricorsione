@@ -73,9 +73,10 @@ public class ReginePrimaSoluzione {
 		return this.soluzione;
 	}
 	
-	// questa procedura è boolean perchè oltre a passare la soluzione parziale alla chiamata ricorsiva passo anche un booleano, e appena il boolean ritorna falsa
+	// questa procedura è boolean perchè oltre a passare la soluzione parziale alla chiamata ricorsiva passo anche un booleano, e appena il boolean ritorna false
     // vorrà dire che ho trovato la mia soluzione e quindi non avrà senso continuare e posso finire li la ricerca ricorsiva delle soluzioni.
-	private boolean regine_ricorsiva(List<Integer> parziale, int livello, int N ) {  //(soluzione parziale, livello a cui sono arrivato, dimensione scacchiera)
+	private boolean regine_ricorsiva(List<Integer> parziale, int livello, int N ) {  //(soluzione parziale, livello a cui sono arrivato, dimensione scacchiera,
+																					  // il livello corrisponde al numero della riga cui sono arrivato)
 		
 		if(livello==N) { 
 		
@@ -90,9 +91,9 @@ public class ReginePrimaSoluzione {
 			//CASO NORMALE
 			// da parziale[0] fino a parziale[livello-1] le soluzioni parziali sono già decise
 			// devo decidere parziale[livello] tra tutti i valori possibili che vanno
-			// da 0 a N-1 (che sono le colonne colonne), purché compatibili
+			// da 0 a N-1 (che sono le colonne), purché compatibili
 			// la compatibilità per riga è data da costruzione (ne sto mettendo una per riga)
-			// mentre la compatibilità per diagonali e colonne ladovrò verificare.
+			// mentre la compatibilità per diagonali e colonne la dovrò verificare.
 			
 			for(int col=0; col<N; col++) {   // vado a provare tutte le posizioni: in pratica mi chiedo
 				                             // ciclicamente, scorrendo le varie posizioni disponibili, 
@@ -119,12 +120,13 @@ public class ReginePrimaSoluzione {
 		}
 	}
 	
-	private boolean compatibile(int livello, Integer col, List<Integer> parziale) {
+	private boolean compatibile(int livello, Integer col, List<Integer> parziale) { // int livello = valore corrispondente la riga alla quale si trova il valore
+																					// che voglio aggiungere alla soluzione parziale.
 		
 		// incompatibilità = quando cerco di mettere una regina in una colonna nella quale c'era già una regina nelle righe precedenti,
-		// se nalla lista parziale esiste già il valore non andrà bene
+		// se nalla lista parziale esiste già il valore non andrà bene.
 		
-		if (parziale.indexOf(col) != -1)  // se entrò qui vorrà dire che nella soluzione parziale esiste già una regina nella posizione col, quindi non andrà bene
+		if (parziale.indexOf(col) != -1)  // se entrò qui vorrà dire che nella soluzione parziale esiste già una regina nella posizione col, quindi non andrà bene.
 			return false;
 		
 		// ho verificato le colonne ora devo verificare le diagonali, quindi se la regina che voglio mettere risulti essere sulla diagonale crescente
@@ -140,9 +142,9 @@ public class ReginePrimaSoluzione {
 			// regina alle coordinate (R,C)=( riga, parziale.get(riga) )
 			// confrontare con (R,C)=(livello, col)
 			
-			if(riga + parziale.get(riga) == livello+col)
+			if(riga + parziale.get(riga) == livello+col)  // la somma delle coordinate (x+y) dei punti che formano la diagonale crescente è costante.
 				return false;
-			if(riga - parziale.get(riga) == livello-col)
+			if(riga - parziale.get(riga) == livello-col)  // la differenza delle coordinate (x-y) dei punti che formano la diagonale derescente è costante.
 				return false;
 		}
 		return true ;
